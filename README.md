@@ -2,12 +2,15 @@
 
 A speech-to-text tool written in Python. It takes an audio file (or live microphone input) and produces a transcript, with timestamps, subtitle files and an accuracy score if you give it the correct text to compare against. It runs fully offline once the model has been downloaded.
 
-| | |
+| Name | Register No. |
 |---|---|
-| Name | Aswin Kannaa R |
-| Register No. | RA2311003050048 |
-| Class | B.Tech IV CSE-A |
-| Assignment | Task 2: ASR Tool Implementation |
+| Aswin Kannaa R | RA2311003050048 |
+| Faaris Ahmed | RA2311003050011 |
+| Irfan Mohammed | RA2311003050245 |
+
+Class: B.Tech IV CSE-A
+
+Assignment: Task 2, ASR Tool Implementation
 
 ## What it does
 
