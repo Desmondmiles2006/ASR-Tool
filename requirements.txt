@@ -1,0 +1,6 @@
+faster-whisper>=1.1
+av>=11,<17          # faster-whisper 1.2 is not yet compatible with PyAV 17+
+numpy>=1.24
+sounddevice>=0.4    # microphone recording
+gradio>=4.0         # web interface (app.py)
+pytest>=8.0         # tests

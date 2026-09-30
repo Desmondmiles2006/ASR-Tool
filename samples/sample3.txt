@@ -1,0 +1,1 @@
+Automatic speech recognition is used in voice assistants, captioning and dictation software.

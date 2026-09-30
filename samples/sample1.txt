@@ -1,0 +1,1 @@
+Speech recognition converts spoken language into written text.
