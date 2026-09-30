@@ -59,6 +59,9 @@ segments with start/end times -> txt / srt / vtt / json, WER/CER
 | Gradio | Web interface |
 | pytest | Unit and integration tests |
 | argparse | Command-line interface |
+| Docker | Packaging the web interface |
+| GitHub Actions | Running tests and deploying on every push |
+| Hugging Face Spaces | Hosting the website |
 | Git and GitHub | Version control and hosting |
 
 ## Project structure
@@ -73,7 +76,12 @@ segments with start/end times -> txt / srt / vtt / json, WER/CER
 │   ├── formats.py        # txt, srt, vtt and json writers
 │   ├── metrics.py        # WER and CER (edit distance)
 │   └── audio.py          # microphone recording, WAV saving, folder scanning
+├── .github/
+│   ├── workflows/deploy.yml  # runs tests, then deploys the website
+│   ├── deploy_space.py       # uploads the repo to Hugging Face Spaces
+│   └── space_header.md       # Space settings (Docker, port 7860)
 ├── app.py                # Gradio web interface
+├── Dockerfile            # container for the website
 ├── samples/              # test clips (.wav) with their correct transcripts (.txt)
 ├── tests/                # pytest test suite
 ├── requirements.txt
@@ -176,6 +184,26 @@ python app.py
 ```
 
 Open http://127.0.0.1:7860 in a browser. You can upload a file or record with the microphone, pick the model and language, and paste a reference sentence to get the WER. The transcript can be downloaded as txt, srt or json.
+
+The same interface also runs in Docker:
+
+```bash
+docker build -t asr-tool .
+docker run -p 7860:7860 asr-tool
+```
+
+### Online version (Hugging Face Spaces)
+
+The web interface is hosted for free on Hugging Face Spaces, so it can be used from a browser with nothing installed. Deployment is automatic. On every push to `main`, the GitHub Action in `.github/workflows/deploy.yml` runs the test suite on Linux, and if the tests pass it uploads the repo to the Space. Hugging Face then builds the `Dockerfile` and restarts the site. A build takes around five minutes.
+
+One-time setup:
+
+1. Make an account at https://huggingface.co.
+2. Create an access token with **Write** permission at https://huggingface.co/settings/tokens.
+3. In the GitHub repo, open Settings > Secrets and variables > Actions, click **New repository secret**, name it `HF_TOKEN` and paste the token.
+4. Open the Actions tab, pick "Test and deploy website" and click **Run workflow** (or push any commit).
+
+The first run creates the Space, and the log prints its address, `https://huggingface.co/spaces/<your Hugging Face username>/ASR-Tool`. Free Spaces go to sleep after 48 hours without visitors and wake up on the next visit, which takes about a minute.
 
 ### Command options
 

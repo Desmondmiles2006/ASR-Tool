@@ -1,0 +1,10 @@
+.venv/
+venv/
+.git/
+.github/
+.claude/
+__pycache__/
+.pytest_cache/
+.gradio/
+outputs/
+tests/
